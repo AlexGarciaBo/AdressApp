@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -19,7 +20,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    
+
     /**
      * The data as an observable list of Persons.
      */
@@ -46,11 +47,14 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
 
+        // Set the application icon.
+        this.primaryStage.getIcons().add(new Image("file:resources/images/address_book_32.png"));
+
         initRootLayout();
 
         showPersonOverview();
     }
-    
+
     /**
      * Initializes the root layout.
      */
@@ -60,7 +64,7 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -79,24 +83,24 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
-            
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
-            
+
             // Give the controller access to the main app.
             PersonOverviewController controller = loader.getController();
             controller.setMainApp(this);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
 	/**
 	 * Opens a dialog to edit details for the specified person. If the user
 	 * clicks OK, the changes are saved into the provided person object and true
 	 * is returned.
-	 * 
+	 *
 	 * @param person the person object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
@@ -112,6 +116,7 @@ public class MainApp extends Application {
 			dialogStage.setTitle("Edit Person");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
+			dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -129,7 +134,7 @@ public class MainApp extends Application {
 			return false;
 		}
 	}
-    
+
     /**
      * Returns the main stage.
      * @return
@@ -137,9 +142,9 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
     	return primaryStage;
     }
-    
+
     /**
-     * Returns the data as an observable list of Persons. 
+     * Returns the data as an observable list of Persons.
      * @return
      */
     public ObservableList<Person> getPersonData() {

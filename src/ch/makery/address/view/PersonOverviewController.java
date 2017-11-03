@@ -1,7 +1,6 @@
 package ch.makery.address.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -111,12 +110,12 @@ public class PersonOverviewController {
 			personTable.getItems().remove(selectedIndex);
 		} else {
 			// Nothing selected.
-			  Alert alert = new Alert(Alert.AlertType.WARNING);
-	            alert.setTitle("Warning");
-	            alert.setHeaderText("No person to delete");
-	            alert.setContentText("Please select a row");
-	            alert.showAndWait();
-	    }
+			Dialogs.create()
+		        .title("No Selection")
+		        .masthead("No Person Selected")
+		        .message("Please select a person in the table.")
+		        .showWarning();
+		}
 	}
 
 	/**
